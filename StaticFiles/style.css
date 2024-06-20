@@ -1,0 +1,158 @@
+#map {
+    width: 50vw;
+    height: 60vh;
+}
+
+.marker-border1 {
+    background-color: #007bff;
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+}
+
+.marker-border2 {
+    background-color: #007bff;
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+}
+
+.marker-icon1 {
+    background-position: center;
+    background-size: contain;
+    border-radius: 50px;
+    height: 50px;
+    width: 50px;
+    background-image: url('/pass.png');
+
+}
+
+.marker-icon2 {
+    background-position: center;
+    background-size: contain;
+    border-radius: 50px;
+    height: 50px;
+    width: 50px;
+    background-image: url('/drvr.png');
+
+}
+
+#leftBottom {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 47%;
+    height: calc(100% - 100px);
+    /* Adjusted height */
+    padding: 10px;
+    background-color: #c5f0e2;
+    overflow: auto;
+    /* Added overflow property */
+}
+
+#driversList {
+    background-color: bisque;
+    border-radius: 10px;
+    padding: 10px;
+    border: 2px solid brown;
+    width: 95%;
+    height: 30%;
+    overflow-y: auto;
+}
+
+#rightContent {
+    background-color: #e6e6ff;
+    /* Light purple */
+    height: 100vh;
+    /* Full height of the viewport */
+    width: 50%;
+    /* Adjusted width */
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    padding: 10px;
+}
+
+.chat-container {
+    width: 80%;
+    max-width: 600px;
+    height: 300px;
+    /* Fixed height */
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    bottom: 10px;
+    left: -49%;
+    transform: translateX(-50%);
+}
+
+.messages {
+    height: calc(100% - 50px);
+    overflow-y: auto;
+    margin-bottom: 20px;
+    padding: 4px;
+    /* Changed padding to 4px */
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.message1 {
+    margin-bottom: 10px;
+    padding: 10px 15px;
+    border-radius: 10px;
+    background-color: #25c690;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.message0 {
+    margin-bottom: 10px;
+    padding: 10px 15px;
+    border-radius: 10px;
+    background-color: #90c2f5;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.input-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 100%;
+}
+
+input[type="text"] {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px 0 0 5px;
+    outline: none;
+    box-sizing: border-box;
+    /* Include padding and borders in the total width */
+}
+
+button {
+    padding: 8px 12px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+}
+
+
+.loader {
+    width: 120px;
+    height: 60px;
+    border-radius: 200px 200px 0 0;
+    -webkit-mask: repeating-radial-gradient(farthest-side at bottom ,#0000 0,#000 1px 12%,#0000 calc(12% + 1px) 20%);
+    background:
+     radial-gradient(farthest-side at bottom,#514b82 0 95%,#0000 0) bottom/0% 0% no-repeat
+     #ddd;
+    animation: l10 2s infinite steps(6);
+  }
+  @keyframes l10 {
+      100% {background-size:120% 120%}
+  }
+
+

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.25.0/maps/maps.css" />
+    <link rel="stylesheet" type="text/css" href="./style.css" />
+</head>
+
+<body>
+    <div id="buttons">
+    <button id="Passenger">Click to use app as Passenger</button>
+    <button id="Driver">Click to use app as Driver</button>
+    <button id="Refresh">Refresh List</button>
+    <span id="role"></span>
+</div>
+
+    <div id="leftBottom">
+        <div id="driversList">
+            <h1 id="heading"></h1>
+        </div>
+    </div>
+
+
+    <div id="rightContent">
+        <div style="height: 100%;" id="map"></div>
+        <div class="chat-container">
+            <div class="messages" id="messages"></div>
+            <div class="input-container">
+                <input type="text" id="messageInput" disabled="disabled" placeholder="Type your message...">
+                <button id="sendButton">Send</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.25.0/maps/maps-web.min.js"></script>
+<script src="./script.js"></script>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="./socketScript.js"></script>
+
+</html>
