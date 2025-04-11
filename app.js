@@ -6,9 +6,7 @@ html=fs.readFileSync('./StaticFiles/server.html')
 const app=express();
 const server=http.createServer(app);
 const io=new Server(server);
-MONGODB_URI='';
-REDIS_URI=''
-REDIS_PASSWORD=''
+
 
 const controllers=require('./AppControllers/Controllers.js');
 const RedisCloudClient=require('./DBControllers/RedisConnection.js')

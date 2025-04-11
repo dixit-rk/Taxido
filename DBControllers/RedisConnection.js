@@ -2,14 +2,14 @@ const {createClient}=require('redis');
 const closeApp=require("./ErrorHandler");
 let reconnection_tries=2;
 exports.conn=new Promise((resolve,reject)=>{
-    REDIS_URI=''
+    REDIS_URI='localhost'
     REDIS_PASSWORD=''
 
     const client = createClient({
         password: REDIS_PASSWORD,
         socket: {
             host: REDIS_URI,
-            port: 10614,
+            port: 6379,
             reconnectStrategy: function () {
                 return 1000;
               }
