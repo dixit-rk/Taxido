@@ -1,14 +1,23 @@
-const http=require('http');
-const express=require('express');
-const {Server}=require('socket.io');
-const fs=require('fs');
-html=fs.readFileSync('./StaticFiles/server.html')
-const app=express();
-const server=http.createServer(app);
-const io=new Server(server);
+const http = require('http');
+const express = require('express');
+const {Server} = require('socket.io');
+const fs = require('fs');
+const cookieParser = require('cookie-parser');
+const { protect } = require('./middleware/auth');
+
+const app = express();
+const server = http.createServer(app);
+const io = new Server(server);
+
+// Middleware
+app.use(express.json());
+app.use(cookieParser());
+
+// Auth routes
+app.use('/auth', require('./routes/auth'));
 
 
-const controllers=require('./AppControllers/Controllers.js');
+const controllers=require('./AppControllers/Controllers.js')
 const RedisCloudClient=require('./DBControllers/RedisConnection.js')
 const MongoDBClient=require("./DBControllers/MongoDBConnection.js")
 
@@ -183,11 +192,36 @@ io.on('connection',async (socket)=>{
     })
 })
 
-app.use(express.static('../public'))
-app.use(express.static('./StaticFiles'))
+// Static files
+app.use(express.static('../public'));
+app.use(express.static('./StaticFiles'));
 
-app.get('/',(req,res)=>{
-    res.end(html);
-})
+// Main route - protected
+app.get('/', protect, (req, res) => {
+    res.sendFile(__dirname + '/StaticFiles/server.html');
+});
+
+// Auth pages
+app.get('/login', (req, res) => {
+    res.sendFile(__dirname + '/StaticFiles/login.html');
+});
+
+app.get('/signup', (req, res) => {
+    res.sendFile(__dirname + '/StaticFiles/signup.html');
+});
+
+// Socket.IO connection handling
+io.use((socket, next) => {
+    const token = socket.handshake.auth.token;
+    if (token) {
+        try {
+            const decoded = jwt.verify(token, process.env.JWT_SECRET);
+            socket.userId = decoded.id;
+        } catch (err) {
+            console.log('Invalid token, continuing as guest');
+        }
+    }
+    next();
+});
 
 module.exports=server;

@@ -23,7 +23,11 @@ Passenger.addEventListener('click', async () => {
             console.log(`Lat: ${data.coords.latitude}\nLng: ${data.coords.longitude}`);
             passLat = data.coords.latitude;
             passLng = data.coords.longitude;
-            const socket = io();
+            // Get token from cookie
+            const token = document.cookie.split(';').find(c => c.trim().startsWith('token='))?.split('=')[1];
+            const socket = io({
+                auth: { token: token || '' }
+            });
             socket.on('connect', () => {
                 console.log(`${socket.id} Passenger is connected from frontEnd`);
                 socket.emit('UserInfo', { id: socket.id, role: 'Passenger', passLat: passLat, passLng: passLng });
@@ -68,12 +72,18 @@ Passenger.addEventListener('click', async () => {
 
             }
         })
-            refreshButton.addEventListener('click', () => {
-                listOfdrivers.innerHTML="";
-                document.querySelectorAll('.marker-icon2').forEach(e => e.remove());
-                document.querySelectorAll('.marker-border2').forEach(e => e.remove());
-                socket.emit('refreshList', "");
-            })
+            // Set up refresh functionality
+            function setupRefreshButton(socket) {
+                refreshButton.onclick = () => {
+                    console.log('Refreshing driver list...');
+                    listOfdrivers.innerHTML = "";
+                    document.querySelectorAll('.marker-icon2').forEach(e => e.remove());
+                    document.querySelectorAll('.marker-border2').forEach(e => e.remove());
+                    socket.emit('refreshList', "");
+                };
+            }
+            
+            setupRefreshButton(socket);
             socket.on("IsAcc", (data) => {
                 if (data.status == true && data.pID==socket.id){
                     msgInput.removeAttribute("disabled");
@@ -165,7 +175,11 @@ Driver.addEventListener('click', () => {
                 socket.emit('LocationChange', { clng: Slng, clat: Slat });
             })
             map.setCenter([data.coords.longitude, data.coords.latitude])
-            const socket = io();
+            // Get token from cookie
+            const token = document.cookie.split(';').find(c => c.trim().startsWith('token='))?.split('=')[1];
+            const socket = io({
+                auth: { token: token || '' }
+            });
             let myLng = data.coords.longitude;
             let myLat = data.coords.latitude;
             socket.on('connect', () => {
