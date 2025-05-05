@@ -1,4 +1,3 @@
-
 exports.findFromMongodb=async(Drivers,passLat,passLng)=>{
     drvrs=await Drivers.find({
         location:{
@@ -7,7 +6,8 @@ exports.findFromMongodb=async(Drivers,passLat,passLng)=>{
                 $minDistance:0,
                 $maxDistance:2000
             }
-        }
+        },
+        available: true
     }).toArray();
     return drvrs;
 }
@@ -34,6 +34,8 @@ exports.findDistance=(dLng,dLat,passLng,passLat)=>{
 
 
 exports.addToRedisdb=async (drvrs,client,passLat,passLng,pass_socket_id)=>{
+    await client.del(pass_socket_id);
+    
     for(i=0;i<drvrs.length;i++){
             
         dLng=drvrs[i].location.coordinates[0];
